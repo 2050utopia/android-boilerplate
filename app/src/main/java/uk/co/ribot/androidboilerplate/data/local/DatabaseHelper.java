@@ -31,30 +31,6 @@ public class DatabaseHelper {
         return mDb;
     }
 
-    /**
-     * Remove all the data from all the tables in the database.
-     */
-    public Observable<Void> clearTables() {
-        return Observable.create(new Observable.OnSubscribe<Void>() {
-            @Override
-            public void call(Subscriber<? super Void> subscriber) {
-                if (subscriber.isUnsubscribed()) return;
-                BriteDatabase.Transaction transaction = mDb.newTransaction();
-                try {
-                    Cursor cursor = mDb.query("SELECT name FROM sqlite_master WHERE type='table'");
-                    while (cursor.moveToNext()) {
-                        mDb.delete(cursor.getString(cursor.getColumnIndex("name")), null);
-                    }
-                    cursor.close();
-                    transaction.markSuccessful();
-                    subscriber.onCompleted();
-                } finally {
-                    transaction.end();
-                }
-            }
-        });
-    }
-
     public Observable<Ribot> setRibots(final Collection<Ribot> newRibots) {
         return Observable.create(new Observable.OnSubscribe<Ribot>() {
             @Override
@@ -65,7 +41,7 @@ public class DatabaseHelper {
                     mDb.delete(Db.RibotProfileTable.TABLE_NAME, null);
                     for (Ribot ribot : newRibots) {
                         long result = mDb.insert(Db.RibotProfileTable.TABLE_NAME,
-                                Db.RibotProfileTable.toContentValues(ribot.profile),
+                                Db.RibotProfileTable.toContentValues(ribot.profile()),
                                 SQLiteDatabase.CONFLICT_REPLACE);
                         if (result >= 0) subscriber.onNext(ribot);
                     }
@@ -84,7 +60,7 @@ public class DatabaseHelper {
                 .mapToList(new Func1<Cursor, Ribot>() {
                     @Override
                     public Ribot call(Cursor cursor) {
-                        return new Ribot(Db.RibotProfileTable.parseCursor(cursor));
+                        return Ribot.create(Db.RibotProfileTable.parseCursor(cursor));
                     }
                 });
     }

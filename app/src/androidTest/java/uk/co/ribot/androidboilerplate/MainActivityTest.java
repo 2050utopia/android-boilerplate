@@ -16,8 +16,8 @@ import java.util.List;
 
 import rx.Observable;
 import uk.co.ribot.androidboilerplate.data.model.Ribot;
+import uk.co.ribot.androidboilerplate.test.common.TestComponentRule;
 import uk.co.ribot.androidboilerplate.test.common.TestDataFactory;
-import uk.co.ribot.androidboilerplate.test.common.rules.TestComponentRule;
 import uk.co.ribot.androidboilerplate.ui.main.MainActivity;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -61,11 +61,11 @@ public class MainActivityTest {
         for (Ribot ribot : testDataRibots) {
             onView(withId(R.id.recycler_view))
                     .perform(RecyclerViewActions.scrollToPosition(position));
-            String name = String.format("%s %s", ribot.profile.name.first,
-                    ribot.profile.name.last);
+            String name = String.format("%s %s", ribot.profile().name().first(),
+                    ribot.profile().name().last());
             onView(withText(name))
                     .check(matches(isDisplayed()));
-            onView(withText(ribot.profile.email))
+            onView(withText(ribot.profile().email()))
                     .check(matches(isDisplayed()));
             position++;
         }

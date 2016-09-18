@@ -12,17 +12,18 @@ Libraries and tools included:
 - [SqlBrite](https://github.com/square/sqlbrite)
 - [Butterknife](https://github.com/JakeWharton/butterknife)
 - [Timber](https://github.com/JakeWharton/timber)
-- [Picasso](http://square.github.io/picasso/)
-- [Otto](http://square.github.io/otto/) event bus
-- Functional tests with [Espresso](https://code.google.com/p/android-test-kit/wiki/Espresso)
+- [Glide](https://github.com/bumptech/glide)
+- [AutoValue](https://github.com/google/auto/tree/master/value) with extensions [AutoValueParcel](https://github.com/rharter/auto-value-parcel) and [AutoValueGson](https://github.com/rharter/auto-value-gson)
+- Functional tests with [Espresso](https://google.github.io/android-testing-support-library/docs/espresso/index.html)
 - [Robolectric](http://robolectric.org/)
 - [Mockito](http://mockito.org/)
 - [Checkstyle](http://checkstyle.sourceforge.net/), [PMD](https://pmd.github.io/) and [Findbugs](http://findbugs.sourceforge.net/) for code analysis
 
 ## Requirements
 
+- JDK 1.8
 - [Android SDK](http://developer.android.com/sdk/index.html).
-- Android [6.0 (API 23) ](http://developer.android.com/tools/revisions/platforms.html#6.0).
+- Android N [(API 24) ](http://developer.android.com/tools/revisions/platforms.html).
 - Latest Android SDK Tools and build tools.
 
 
